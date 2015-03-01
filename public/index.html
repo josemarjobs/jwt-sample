@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>JWT With Angular And Node</title>
+
+	<script src="/vendor/angular/angular.js"></script>
+	<script src="/app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+	<h1>{{greet}}</h1>
+
+	<div>
+		<form ng-submit="login(username, password)">
+			<label for="username">Username: 
+				<input type="text" id="username" ng-model="username">
+			</label>
+			<label for="password">Password: 
+				<input type="password" id="password" ng-model="password">
+			</label>
+
+			<button type="submit">Login</button>
+		</form>	
+	</div>
+
+	<div>
+		<button ng-click="getRandomUser()">Get User</button>
+		<pre ng-bind="randomUser | json"></pre>
+	</div>
+</body>
+</html>
