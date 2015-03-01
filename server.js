@@ -4,6 +4,7 @@ var faker = require('faker');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var expressJwt = require('express-jwt');
 
 var jwtSecret = 'sdjfnasdouenadkjfbasdfa/sdf;//?asd';
 
@@ -15,6 +16,7 @@ var user = {
 }
 app.use(cors());
 app.use(bodyParser.json());
+app.use(expressJwt({secret: jwtSecret}).unless({path: ['/login']}));
 
 app.get('/random-user', function(req, res){
 	var user = faker.helpers.userCard();
