@@ -25,6 +25,7 @@
 
 	<div>
 		<h2>Welcome {{user.username}}</h2>
+		<button ng-click="logout()">Logout</button>
 		<button ng-click="getRandomUser()">Get User</button>
 		<pre ng-bind="randomUser | json"></pre>
 	</div>

@@ -15,6 +15,7 @@ app.controller('MainCtrl',
 
 	$scope.getRandomUser = getRandomUser;
 	$scope.login = login;
+	$scope.logout = logout;
 
 
 	function getRandomUser () {
@@ -25,11 +26,15 @@ app.controller('MainCtrl',
 
 	function login (username, password) {
 		UserFactory.login(username, password).then(function success (response) {
-			$scope.user = response.data.user;
+			$scope.user = response.data.user;			
 			
-			alert(response.data.token);
+			// alert(response.data.token);
 
 		}, handleError);
+	}
+	function logout () {
+		UserFactory.logout();
+		$scope.user = null;
 	}
 
 	function handleError (response) {
@@ -53,7 +58,8 @@ app.factory('UserFactory',
 	function UserFactory ($http, API_URL, AuthTokenFactory){
 	'use strict';
 	return {
-		login: login
+		login: login,
+		logout: logout
 	};
 
 	function login (username, password) {
@@ -64,6 +70,10 @@ app.factory('UserFactory',
 			AuthTokenFactory.setToken(response.data.token);
 			return response;
 		});
+	}
+
+	function logout () {
+		AuthTokenFactory.setToken();
 	}
 }]);
 
