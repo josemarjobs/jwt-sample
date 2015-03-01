@@ -17,6 +17,11 @@ app.controller('MainCtrl',
 	$scope.login = login;
 	$scope.logout = logout;
 
+	//Initialization;
+	UserFactory.getUser().then(function success (response) {
+		$scope.user = response.data;
+	});
+	//
 
 	function getRandomUser () {
 		RandomUserFactory.getUser().then(function success (response) {
@@ -27,7 +32,7 @@ app.controller('MainCtrl',
 	function login (username, password) {
 		UserFactory.login(username, password).then(function success (response) {
 			$scope.user = response.data.user;			
-			
+
 			// alert(response.data.token);
 
 		}, handleError);
@@ -54,12 +59,13 @@ app.factory('RandomUserFactory', ['$http', 'API_URL',
 }]);
 
 app.factory('UserFactory', 
-	['$http', 'API_URL', 'AuthTokenFactory', 
-	function UserFactory ($http, API_URL, AuthTokenFactory){
+	['$http', 'API_URL', 'AuthTokenFactory', '$q', 
+	function UserFactory ($http, API_URL, AuthTokenFactory, $q){
 	'use strict';
 	return {
 		login: login,
-		logout: logout
+		logout: logout,
+		getUser: getUser
 	};
 
 	function login (username, password) {
@@ -70,6 +76,14 @@ app.factory('UserFactory',
 			AuthTokenFactory.setToken(response.data.token);
 			return response;
 		});
+	}
+
+	function getUser () {
+		if (AuthTokenFactory.getToken()) {
+			return $http.get(API_URL + '/me');
+		} else {
+			$q.reject({data: "Client has no auth token."});
+		}
 	}
 
 	function logout () {

@@ -10,7 +10,7 @@
 <body ng-controller="MainCtrl">
 	<h1>{{greet}}</h1>
 
-	<div>
+	<div ng-hide="user">
 		<form ng-submit="login(username, password)">
 			<label for="username">Username: 
 				<input type="text" id="username" ng-model="username">
@@ -23,7 +23,7 @@
 		</form>	
 	</div>
 
-	<div>
+	<div ng-show="user">
 		<h2>Welcome {{user.username}}</h2>
 		<button ng-click="logout()">Logout</button>
 		<button ng-click="getRandomUser()">Get User</button>

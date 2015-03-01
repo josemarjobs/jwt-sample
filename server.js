@@ -36,7 +36,9 @@ app.post('/login', authenticate, function(req, res){
 	});
 
 });
-
+app.get('/me', function(req, res){
+	res.json(req.user);
+});
 app.listen(3000,function() {
 	util.log("App listening on http://localhost:3000");
 });
