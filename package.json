@@ -15,9 +15,6 @@
     "gulp-util": "^2.2.20",
     "gulp-webserver": "^0.8.1"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Josemar Magalhaes <josemarmagalhaes@hotmail.com>",
   "license": "ISC"
 }
