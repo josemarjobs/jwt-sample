@@ -82,7 +82,7 @@ app.factory('UserFactory',
 		if (AuthTokenFactory.getToken()) {
 			return $http.get(API_URL + '/me');
 		} else {
-			$q.reject({data: "Client has no auth token."});
+			return $q.reject({data: "Client has no auth token."});
 		}
 	}
 
